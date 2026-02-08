@@ -9,7 +9,7 @@ const AdminLayout = () => {
     return (
         <div className="columns m-0" style={{ height: '100vh' }}>
             {/* Sidebar */}
-            <div className="column is-narrow p-0">
+            <div className="column is-narrow p-0 has-background-light">
                 <Sidebar />
             </div>
             {/* Right Side - Topbar/Content */}

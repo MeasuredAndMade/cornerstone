@@ -24,10 +24,23 @@ const Sidebar = () => {
             <ul className='menu-list'>
                 {navItems.map((item) => (
                     <li key={item.to}>
-                        <NavLink to={item.to} className={({ isActive }) => `is-flex is-align-items-center p-2 mb-2 ${isActive ? 'has-background-primary has-text-white' : ''}`} style={{ borderRadius: '8px' }}>
-                            <span className='mr-2'>{item.icon}</span>
+                        <NavLink
+                            to={item.to}
+                            className={({ isActive }) =>
+                                `is-flex is-align-items-center p-2 mb-2 ${
+                                isActive ? "has-text-primary has-text-weight-semibold" : "has-text-grey-dark"
+                                }`
+                            }
+                            style={{
+                                borderRadius: "8px",
+                                textDecoration: "none",
+                                borderBottom: "2px solid transparent"
+                            }}
+                        >
+                            <span className="mr-2">{item.icon}</span>
                             {item.label}
                         </NavLink>
+
                     </li>
                 ))}
             </ul>

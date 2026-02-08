@@ -1,0 +1,17 @@
+/* Kill ALL Bulma menu backgrounds */
+.menu-list a,
+.menu-list a:hover,
+.menu-list a.is-active,
+.menu-list a.active {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Remove ALL Bulma menu backgrounds — including the <li> wrapper */
+.menu-list li,
+.menu-list li:hover,
+.menu-list li.is-active,
+.menu-list li.active {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
