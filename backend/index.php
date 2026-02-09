@@ -25,6 +25,7 @@ switch (true) {
         break;
 
     case $path === '/api/projects' && $method === 'GET':
+        error_log("Path Debug: " . $path);
         list_projects();
         break;
 
