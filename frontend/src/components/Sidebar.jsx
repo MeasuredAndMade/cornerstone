@@ -1,65 +1,79 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import logo from '../assets/logo.png'; // Company Logo
+import React from "react";
+import { NavLink } from "react-router-dom";
+import logo from "../assets/logo.png";
 
 const Sidebar = ({ collapsed, setCollapsed }) => {
-    const navItems = [ 
-        { label: "Dashboard", icon: "📊", to: "/dashboard" }, 
-        { label: "Projects", icon: "📁", to: "/projects" }, 
-        { label: "Blog Posts", icon: "📝", to: "/blog" }, 
-        { label: "Media Library", icon: "🖼️", to: "/media" }, 
-        { label: "Comments", icon: "💬", to: "/comments" }, 
-        { label: "Categories & Tags", icon: "🏷️", to: "/categories" }, 
-        { label: "Users", icon: "👤", to: "/users" },
-        { label: "Settings", icon: "⚙️", to: "/settings" }, 
-    ];
-    return (
-        <aside className="menu p-4 has-background-light" style={{ height: "100%" }}>
-            <div className='mb-5 has-text-centered'>
-                {!collapsed && (
-                    <>
-                        <figure className='image is-96x96 is-inline-block'>
-                            <img src={logo} alt='Measured & Made' style={{ borderRadius: '12px' }} />
-                        </figure>
-                        <p className='is-size-6 has-text-grey mt-2'>Admin Panel</p>
-                    </>
-                )}
-            </div>
-            <ul className='menu-list'>
-                {navItems.map((item) => (
-                    <li key={item.to}>
-                        <div className="sidebar-tooltip-wrapper">
-                            <NavLink
-                            to={item.to}
-                            className={({ isActive }) =>
-                                `is-flex is-align-items-center p-2 mb-2 ${
-                                isActive
-                                    ? "has-text-primary has-text-weight-semibold"
-                                    : "has-text-grey-dark"
-                                }`
-                            }
-                            style={{
-                                borderRadius: "8px",
-                                textDecoration: "none",
-                                borderBottom: "2px solid transparent",
-                                justifyContent: collapsed ? "center" : "flex-start",
-                                position: "relative"
-                            }}
-                            >
-                            <span className="mr-2">{item.icon}</span>
-                            {!collapsed && item.label}
-                            </NavLink>
+  const navItems = [
+    { label: "Dashboard", icon: "📊", to: "/admin/dashboard" },
+    { label: "Projects", icon: "📁", to: "/admin/projects" },
+    { label: "Blog Posts", icon: "📝", to: "/admin/blog" },
+    { label: "Media Library", icon: "🖼️", to: "/admin/media" },
+    { label: "Comments", icon: "💬", to: "/admin/comments" },
+    { label: "Categories & Tags", icon: "🏷️", to: "/admin/categories" },
+    { label: "Users", icon: "👤", to: "/admin/users" },
+    { label: "Settings", icon: "⚙️", to: "/admin/settings" }
+  ];
 
-                            {collapsed && (
-                            <span className="sidebar-tooltip">{item.label}</span>
-                            )}
-                        </div>
-                    </li>
-                ))}
-            </ul>
-            <button className="button is-white" onClick={() => setCollapsed(!collapsed)} style={{ width: collapsed ? "40px" : "100%", padding: collapsed ? "0.25rem" : "0.5rem", display: "flex", justifyContent: "center", alignItems: "center", borderRadius: "6px", marginTop: "1rem", transition: "0.25s" }} > {collapsed ? "→" : "← Collapse"} </button>
-        </aside>
-    );
+  return (
+    <div
+      style={{
+        width: collapsed ? "80px" : "300px",
+        transition: "width 0.25s ease",
+        backgroundColor: "#fff",
+        borderRight: "1px solid #ddd",
+        height: "100vh",
+        position: "fixed",
+        left: 0,
+        top: 0,
+        zIndex: 20
+      }}
+    >
+      <aside className="menu p-4" style={{ height: "100%" }}>
+        {!collapsed && (
+          <div className="has-text-centered mb-5">
+            <figure className="image is-96x96 is-inline-block">
+              <img src={logo} alt="Measured & Made" style={{ borderRadius: "12px" }} />
+            </figure>
+            <p className="is-size-6 has-text-grey mt-2">Admin Panel</p>
+          </div>
+        )}
+
+        <ul className="menu-list">
+          {navItems.map((item) => (
+            <li key={item.to}>
+              <NavLink
+                to={item.to}
+                className={({ isActive }) =>
+                  `is-flex is-align-items-center p-2 mb-2 ${
+                    isActive ? "has-text-primary has-text-weight-semibold" : "has-text-grey-dark"
+                  }`
+                }
+                style={{
+                  borderRadius: "8px",
+                  justifyContent: collapsed ? "center" : "flex-start"
+                }}
+              >
+                <span className="mr-2">{item.icon}</span>
+                {!collapsed && item.label}
+              </NavLink>
+            </li>
+          ))}
+        </ul>
+
+        {/* Collapse button */}
+        <button
+          className="button is-white"
+          onClick={() => setCollapsed(!collapsed)}
+          style={{
+            width: collapsed ? "40px" : "100%",
+            marginTop: "1rem"
+          }}
+        >
+          {collapsed ? "→" : "← Collapse"}
+        </button>
+      </aside>
+    </div>
+  );
 };
 
 export default Sidebar;

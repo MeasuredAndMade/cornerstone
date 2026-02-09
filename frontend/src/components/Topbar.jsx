@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import { Link } from 'react-router-dom';
 
-const Topbar = ({ title }) => {
+const Topbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
@@ -13,27 +14,19 @@ const Topbar = ({ title }) => {
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        position: "relative"
+        position: "sticky",
+        top: 0,
+        zIndex: 10
       }}
     >
-      {/* LEFT: PAGE TITLE */}
-      <h1 className="title is-4 m-0">{title}</h1>
+      <h1 className="title is-4 m-0">
+        <Link to='/admin' className="has-text-grey-dark" style={{ textDecoration: 'none' }}>Measured & Made Admin</Link>
+      </h1>
 
-      {/* RIGHT: ICONS (desktop only) */}
-      <div className="is-hidden-touch" style={{ display: "flex", gap: "1rem" }}>
-        <button className="button is-white">🔔</button>
-        <button className="button is-white">👤</button>
-      </div>
-
-      {/* RIGHT: COLLAPSED MENU BUTTON (mobile only) */}
-      <button
-        className="button is-white is-hidden-desktop"
-        onClick={() => setMenuOpen(!menuOpen)}
-      >
-        ☰
+      <button className="button is-white" onClick={() => setMenuOpen(!menuOpen)}>
+        ⋮
       </button>
 
-      {/* MOBILE DROPDOWN */}
       {menuOpen && (
         <div
           style={{
@@ -47,7 +40,7 @@ const Topbar = ({ title }) => {
             display: "flex",
             flexDirection: "column",
             gap: "0.5rem",
-            zIndex: 10
+            zIndex: 20
           }}
         >
           <button className="button is-white">🔔 Notifications</button>

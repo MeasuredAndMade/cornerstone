@@ -1,3 +1,7 @@
+html, body { 
+    background-color: #f5f5f5 !important; /* Bulma's has-background-light */ 
+    height: 100%; 
+}
 /* Kill ALL Bulma menu backgrounds */
 .menu-list a,
 .menu-list a:hover,

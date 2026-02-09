@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Welcome = () => {
     return (
-        <div className='welcome-page'>
+        <div className='welcome-page has-background-light'>
             {/* HERO */}
             <section className='hero is-light mb-5' style={{ borderRadius: '10px' }}>
                 <div className='hero-body'>
