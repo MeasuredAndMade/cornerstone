@@ -7,43 +7,14 @@ function create_jwt($user) {
     $payload = base64_encode(json_encode([
         'id' => $user['id'],
         'username' => $user['username'],
-        'email' => $user['email'],
         'role' => $user['role'],
         'exp' => time() + 60 * 60 * 4 // 4 hours
     ]));
 
-    // Correct HMAC signing
     $signature = hash_hmac('sha256', "$header.$payload", JWT_SECRET, true);
     $signature = base64_encode($signature);
 
     return "$header.$payload.$signature";
-}
-
-function verify_jwt($token) {
-    $parts = explode('.', $token);
-    if (count($parts) !== 3) return null;
-
-    [$header, $payload, $signature] = $parts;
-
-    // Correct expected signature
-    $expected = base64_encode(hash_hmac('sha256', "$header.$payload", JWT_SECRET, true));
-    if (!hash_equals($expected, $signature)) return null;
-
-    $data = json_decode(base64_decode($payload), true);
-    if (!$data || $data['exp'] < time()) return null;
-
-    return $data;
-}
-
-function get_auth_user() {
-    $headers = getallheaders(); // fixed spelling
-    if (!isset($headers['Authorization'])) return null;
-
-    $auth = $headers['Authorization'];
-    if (strpos($auth, 'Bearer ') !== 0) return null;
-
-    $token = substr($auth, 7);
-    return verify_jwt($token);
 }
 
 function handle_login() {
@@ -57,7 +28,8 @@ function handle_login() {
     $stmt->execute([$username]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if (!$user || !password_verify($password, $user['password_hash'])) {
+    // FIXED: use 'password' instead of 'password_hash'
+    if (!$user || !password_verify($password, $user['password'])) {
         http_response_code(401);
         echo json_encode(['error' => 'Invalid Credentials']);
         return;
